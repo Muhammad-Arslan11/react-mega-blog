@@ -1,7 +1,7 @@
 // all database creation code goes here
 
 import { Client, ID, Databases, query } from "appwrite";
-import conf from "../conf/conf";
+import {conf} from "../components/index";
 
 export class Services {
   client = new Client();

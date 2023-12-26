@@ -1,5 +1,5 @@
 import {Client, Account, ID} from "appwrite";
-import conf from '../conf/conf'
+import {conf} from '../components/index'
 
 export class AuthService{
   // create client
