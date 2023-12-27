@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from "react";
+import "./App.css";
+import { useDispatch } from "react-redux";
+import { appwriteService } from "./components/index";
+import {Header, Footer} from './components/index'
+import { Outlet } from 'react-router-dom'
+import { logout } from "./Store/authSlice";
 
 function App() {
-  const [count, setCount] = useState(0)
+  //make a state loading for tracking of laoding
+  const [loading, setLoading] = useState(true);
+  // make dispatch method
+  const dispatch = useDispatch();
 
-  return (
+  //  use useEffect, get access of Current user from appwriteService and use then() method with access of userData in it
+  useEffect(() => {
+    appwriteService
+      .getCurrentUser()
+      .then((userData) => {
+        // if get access of userData then dispatch data or dispatch logout method
+        if (userData) {
+          dispatch(userData);
+        } else {
+          dispatch(logout());
+        }
+      })
+
+      // after that, use finally() method to update state
+      .finally(() => setLoading(false));
+  }, []);
+
+  // if !loading then return jsx else return null
+  return !loading ? (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <div className="min-h-screen flex flex-wrap content-between bg-gray-400">
+        <div className="w-full block">
+          <Header />
+          <main>
+            TODO: <Outlet />
+          </main>
+          <Footer />
+        </div>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
-  )
+  ) : null;
 }
 
-export default App
+export default App;

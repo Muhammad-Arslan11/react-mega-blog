@@ -12,10 +12,12 @@ import Footer from './Footer/Footer';
 import Container from './Container/Container';
 import PostForm from './post-form/PostForm';
 import conf from '../conf/conf';
-import {login, logout} from '../Store/authSlice';
+
 import appwriteService from '../appwrite/auth'
 import services from '../appwrite/config'
 import AuthLayout from './AuthLayout'
+import LoginPage from '../pages/LoginPage'
+import SignupPage from '../pages/SignupPage'
 
 
 export{
@@ -33,9 +35,10 @@ export{
     Container,
     PostForm,
     conf,
-    login,
-    logout,
+   
     appwriteService,
     services,
-    AuthLayout
+    AuthLayout,
+    LoginPage,
+    SignupPage,
 }

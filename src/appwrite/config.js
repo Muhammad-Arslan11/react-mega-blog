@@ -1,7 +1,8 @@
 // all database creation code goes here
 
-import { Client, ID, Databases, query } from "appwrite";
-import {conf} from "../components/index";
+import { Client, ID, Databases, Storage, Query } from "appwrite";
+// import {conf} from "../components/index";
+import conf from '../conf/conf'
 
 export class Services {
   client = new Client();
@@ -94,10 +95,10 @@ export class Services {
       return await this.database.getDocument(
         conf.appwriteDatabaseId,
         conf.appwriteCollectionId,
-        [query.equal("status", "active")]
+        [Query.equal("status", "active")]
       );
     } catch (error) {
-      console.log("appwrite :: database :: get Post :: error :: ", error);
+      console.log("appwrite :: database :: getPosts :: error :: ", error);
       return false;
     }
   }
